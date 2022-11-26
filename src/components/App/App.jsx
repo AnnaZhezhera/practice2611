@@ -12,47 +12,19 @@ import {
 } from 'components';
 
 import { useLocalStorage } from 'hooks';
+import { useSelector } from 'react-redux';
 
 export const App = () => {
-  // const [todos, setTodos] = useState([]);
+  const {todos} = useSelector(state => state.todos);
 
-  const [todos, setTodos] = useLocalStorage('todos', []);
 
-  // useEffect(() => {
-  //   const todos = JSON.parse(localStorage.getItem('todos'));
-
-  //   if (todos) {
-  //     setTodos(todos);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem('todos', JSON.stringify(todos));
-  // }, [todos]);
-
-  const addTodo = text => {
-    const todo = {
-      id: nanoid(),
-      text,
-    };
-
-    setTodos([...todos, todo]);
-  };
-
-  const handleSubmit = data => {
-    addTodo(data);
-  };
-
-  const deleteTodo = id => {
-    setTodos(todos.filter(todo => todo.id !== id));
-  };
 
   return (
     <>
       <Header />
       <Section>
         <Container>
-          <SearchForm onSubmit={handleSubmit} />
+          <SearchForm />
 
           {todos.length === 0 && (
             <Text textAlign="center">There are no any todos ... </Text>
@@ -66,7 +38,6 @@ export const App = () => {
                     id={todo.id}
                     text={todo.text}
                     counter={index + 1}
-                    onClick={deleteTodo}
                   />
                 </GridItem>
               ))}
