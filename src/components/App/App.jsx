@@ -10,22 +10,25 @@ import {
   Text,
   Todo,
 } from 'components';
-import { useState } from 'react';
-import { useEffect } from 'react';
+
+import { useLocalStorage } from 'hooks';
 
 export const App = () => {
-  const [todos, setTodos] = useState([]);
-  useEffect(() => {
-    const todos = JSON.parse(localStorage.getItem('todos'));
+  // const [todos, setTodos] = useState([]);
 
-    if (todos) {
-      setTodos(todos);
-    }
-  }, []);
+  const [todos, setTodos] = useLocalStorage('todos', []);
 
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+  // useEffect(() => {
+  //   const todos = JSON.parse(localStorage.getItem('todos'));
+
+  //   if (todos) {
+  //     setTodos(todos);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem('todos', JSON.stringify(todos));
+  // }, [todos]);
 
   const addTodo = text => {
     const todo = {
@@ -73,5 +76,3 @@ export const App = () => {
     </>
   );
 };
-
-
